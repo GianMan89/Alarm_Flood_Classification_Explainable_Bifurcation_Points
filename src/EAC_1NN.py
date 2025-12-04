@@ -15,7 +15,7 @@ class EAC_KNN:
         self.k = params.get("n_neighbors", 3)
         self.X_train_features = None
         self.y_train = None
-        self.classes = None
+        self.classes_ = None
 
     @property
     def __name__(self):
@@ -24,7 +24,7 @@ class EAC_KNN:
     def fit(self, X, y):
         self.n_alm_vars = X.shape[1]
         self.y_train = y
-        self.classes = np.unique(y)
+        self.classes_ = np.unique(y)
         # Cache converted alarms
         X_converted = utils.convert_alarms(X)
         self.X_train_features = self.get_feature_vectors(X_converted)
@@ -37,7 +37,7 @@ class EAC_KNN:
     
     def predict(self, X):
         y_proba = self.predict_proba(X)
-        y_pred = [self.classes[np.argmax(y_proba[i])] for i in range(y_proba.shape[0])]
+        y_pred = [self.classes_[np.argmax(y_proba[i])] for i in range(y_proba.shape[0])]
         return np.array(y_pred)
 
     def calculate_distances(self, reference_vector, vector_set):
@@ -56,7 +56,7 @@ class EAC_KNN:
         
         # Calculate class probabilities based on k nearest neighbors
         class_probs = []
-        for class_label in self.classes:
+        for class_label in self.classes_:
             count = np.sum(k_nearest_labels == class_label)
             class_probs.append(count / self.k)
         

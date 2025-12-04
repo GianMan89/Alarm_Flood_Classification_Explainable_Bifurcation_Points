@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-class WDI_1NN:
+class WDI_KNN:
     def __init__(self, params={"template_threshold": 0.5, "n_neighbors": 1}):
         self.classes = None
         self.templates = None
@@ -11,14 +11,16 @@ class WDI_1NN:
         self.X_active = None
         self.template_threshold = params["template_threshold"]
         self.n_neighbors = params["n_neighbors"]
+        self.classes_ = None
 
     @property
     def __name__(self):
-        return "WDI_1NN"
+        return "WDI_KNN"
 
     def fit(self, X, y):
         self.calc_templates(X, y)
         self.calc_weights()
+        self.classes_ = np.unique(y)
 
     def predict_proba(self, X):
         # get vectors with active alarms per sample

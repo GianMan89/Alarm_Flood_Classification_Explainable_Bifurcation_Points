@@ -25,6 +25,7 @@ class CASIM:
         self.alphas = params["alphas"]
 
         self.X_length = None
+        self.classes_ = None
 
     @property
     def __name__(self):
@@ -42,6 +43,7 @@ class CASIM:
         self.clf.fit(X, y)
         # save the length of the input data
         self.X_length = X.shape[2]
+        self.classes_ = np.unique(y)
 
     def predict_proba(self, X):
         # if the length of the input data is different from the length of the

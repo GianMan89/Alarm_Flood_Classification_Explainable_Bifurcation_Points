@@ -11,6 +11,7 @@ class ACM_SVM:
 
     def __init__(self, params={}):
         self.clf = None
+        self.classes_ = None
 
     @property
     def __name__(self):
@@ -22,6 +23,7 @@ class ACM_SVM:
         # train SVM with one-vs-one scheme
         self.clf = make_pipeline(StandardScaler(), SVC(probability=True))
         self.clf.fit(X_acm, y)
+        self.classes_ = np.unique(y)
 
     def predict_proba(self, X):
         # get alarm coactivations

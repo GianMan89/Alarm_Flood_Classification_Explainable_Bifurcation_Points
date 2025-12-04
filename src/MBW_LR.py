@@ -30,12 +30,14 @@ class MBW_LR:
 
         self.clf = None
         self.class_bounds = {}
+        self.classes_ = None
     
     @property
     def __name__(self):
         return "MBW_LR"
 
     def fit(self, X, y):
+        self.classes_ = np.unique(y)
         self.n_alm_vars = X.shape[1]
         self.idf = np.array([0 for i in range(self.n_alm_vars)])
         X_train_convert = utils.convert_alarms(X)

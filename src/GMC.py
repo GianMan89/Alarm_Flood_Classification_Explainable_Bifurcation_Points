@@ -9,11 +9,13 @@ class GMC:
     def __init__(self, params={}):
         self.most_frequent_class = None
         self.n_classes = None
+        self.classes_ = None
 
     def fit(self, _, y_train):
         self.most_frequent_class = np.bincount(y_train).argmax()
         self.n_classes = len(np.unique(y_train))
-
+        self.classes_ = np.unique(y_train)
+        
     def predict_proba(self, X):
         y_predict = []
         for i in X:

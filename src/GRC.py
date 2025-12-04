@@ -9,11 +9,13 @@ class GRC:
     def __init__(self, params={}):
         self.class_labels = None
         self.n_classes = None
+        self.classes_ = None
 
     def fit(self, _, y_train):
         self.class_labels = np.unique(y_train)
         self.n_classes = len(self.class_labels)
-
+        self.classes_ = self.class_labels
+        
     def predict_proba(self, X):
         y_predict = []
         for i in X:
